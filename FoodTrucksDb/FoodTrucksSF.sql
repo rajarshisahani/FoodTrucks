@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[FoodTrucksSF]
+(
+	[LocationId] INT NOT NULL PRIMARY KEY, 
+	[Address] VARCHAR(500) NULL, 
+	[Cnn] VARCHAR(50) NULL, 
+	[Approved] DATETIME2 NULL, 
+	[Block] VARCHAR(50) NULL,
+	[Lot] VARCHAR(50) NULL, 
+	[Blocklot] VARCHAR(50) NULL, 
+	[Applicant] VARCHAR(500) NULL, 
+	[DaysHours] VARCHAR(500) NULL, 
+	[ExpirationDate] DATETIME2 NULL, 
+	[FacilityType] VARCHAR(50) NULL, 
+	[FoodItems] VARCHAR(500) NULL, 
+	[Latitude] VARCHAR(50) NULL, 
+	[Longitude] VARCHAR(50) NULL, 
+	[LocationType] VARCHAR(50) NULL, 
+	[LocationDescription] VARCHAR(500) NULL, 
+	[Permit] VARCHAR(50) NULL, 
+	[PriorPermit] VARCHAR(50) NULL, 
+	[Schedule] VARCHAR(500) NULL, 
+	[Status] VARCHAR(50) NULL, 
+	[x] VARCHAR(50) NULL, 
+	[y] VARCHAR(50) NULL
+)
