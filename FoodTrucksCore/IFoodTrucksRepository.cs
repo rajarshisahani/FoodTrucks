@@ -10,7 +10,7 @@ namespace FoodTrucksCore
 {
     public interface IFoodTrucksRepository
     {
-        List<FoodTrucks> GetNearbyTrucks(string latitude, string longitiude);
+        List<FoodTrucks> GetNearbyTrucks(double latitude, double longitiude);
 
         List<FoodTrucks> GetAllTrucks();
     }

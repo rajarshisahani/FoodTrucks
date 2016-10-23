@@ -51,8 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FoodTrucksEntity.cs" />
     <Compile Include="FoodTrucksSF.cs" />
+    <Compile Include="FoodTrucksSFEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,10 +20,24 @@ namespace FoodTrucksApi.Controllers
         }
         
         [HttpGet]
-        public HttpResponseMessage GetNearbyTrucks([FromUri]string latitude, [FromUri]string longitude)
+        public HttpResponseMessage GetNearbyTrucks([FromUri]double latitude, [FromUri]double longitude)
         {
-            var getTrucks = new List<string>();
-            var response = Request.CreateResponse(HttpStatusCode.OK, getTrucks);
+            HttpResponseMessage response;
+            try
+            {
+                var trucks = _foodTrucksRepository.GetNearbyTrucks(latitude, longitude);
+                if (!trucks.Any())
+                {
+                    response = Request.CreateResponse(HttpStatusCode.NotFound, "No data found for the corresponding request");
+                }
+                response = Request.CreateResponse(HttpStatusCode.OK, trucks);
+                //return response;
+            }
+            catch (Exception e)
+            {
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Partner downstream system failed to respond. Please check later.");
+                //return response;
+            }
             return response;
         }
 

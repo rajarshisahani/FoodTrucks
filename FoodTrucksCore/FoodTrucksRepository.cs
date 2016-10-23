@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using FoodTrucksModel;
 using FoodTrucksData;
-
+using System.Device.Location;
 namespace FoodTrucksCore
 {
     public class FoodTrucksRepository : IFoodTrucksRepository
     {
         public List<FoodTrucks> GetAllTrucks()
         {
-            using (var ctx = new FoodTrucksEntity())
+            using (var ctx = new FoodTrucksSFEntity())
             {
                 var allFoodTrucks = ctx.FoodTrucksSFs.ToList();
                 return MapToServiceModel(allFoodTrucks);
@@ -27,77 +27,40 @@ namespace FoodTrucksCore
                 foodTrucks.Add(new FoodTrucks()
                 {
                     LocationId = trucks.LocationId,
-
-
                     Address = trucks.Address,
-
-
                     Cnn = trucks.Cnn,
-
                     Approved = trucks.Approved,
-
-
                     Block = trucks.Block,
-
-
                     Lot = trucks.Lot,
-
-
                     Blocklot = trucks.Blocklot,
-
-
                     Applicant = trucks.Applicant,
-
-
                     DaysHours = trucks.DaysHours,
-
                     ExpirationDate = trucks.ExpirationDate,
-
-
                     FacilityType = trucks.FacilityType,
-
-
                     FoodItems = trucks.FoodItems,
-
-
-                    Latitude = trucks.Latitude,
-
-
-                    Longitude = trucks.Longitude,
-
-
+                    Latitude = (double)trucks.Latitude,
+                    Longitude = (double)trucks.Longitude,
                     LocationType = trucks.LocationType,
-
-
                     LocationDescription = trucks.LocationDescription,
-
-
                     Permit = trucks.Permit,
-
-
                     PriorPermit = trucks.PriorPermit,
-
-
                     Schedule = trucks.Schedule,
-
-
                     Status = trucks.Status,
-
-
                     x = trucks.x,
-
-
                     y = trucks.y
-
                 });
                 
             }
             return foodTrucks;
         }
 
-        public List<FoodTrucks> GetNearbyTrucks(string latitude, string longitiude)
+        public List<FoodTrucks> GetNearbyTrucks(double latitude, double longitiude)
         {
-            throw new NotImplementedException();
+            var allTrucks = GetAllTrucks();
+            var currentCoordinates = new GeoCoordinate(latitude, longitiude);
+            var nearestTrucksCoordinates = allTrucks.Select(trucks => new GeoCoordinate(trucks.Latitude ,trucks.Longitude)).Where(x => x.GetDistanceTo(currentCoordinates) < 1000.00);
+            var nearestTrucks = allTrucks.Where(trucks => nearestTrucksCoordinates.Any(coordinates => trucks.Latitude == coordinates.Latitude && trucks.Longitude == coordinates.Longitude)).ToList();
+            return nearestTrucks;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace FoodTrucks.Data.Models
         [StringLength(50)]
         public string Cnn { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime? Approved { get; set; }
 
         [StringLength(50)]
@@ -36,6 +37,7 @@ namespace FoodTrucks.Data.Models
         [StringLength(500)]
         public string DaysHours { get; set; }
 
+        [Column(TypeName = "datetime2")]
         public DateTime? ExpirationDate { get; set; }
 
         [StringLength(50)]
@@ -44,11 +46,9 @@ namespace FoodTrucks.Data.Models
         [StringLength(500)]
         public string FoodItems { get; set; }
 
-        [StringLength(50)]
-        public string Latitude { get; set; }
+        public double? Latitude { get; set; }
 
-        [StringLength(50)]
-        public string Longitude { get; set; }
+        public double? Longitude { get; set; }
 
         [StringLength(50)]
         public string LocationType { get; set; }

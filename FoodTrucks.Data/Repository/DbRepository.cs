@@ -11,23 +11,38 @@ namespace FoodTrucks.Data.Repository
     {
         public static void AddData(List<SFDataModel> SFdata)
         {
-            var FoodTrucks = MapToFoodTrucksDbDbObject(SFdata);
+            var FoodTrucks = MapToFoodTrucksDbObject(SFdata);
             using (var ctx = new FoodTrucksSFDbContext())
             {
                 try
                 {
-                    ctx.FoodTrucksSF.AddRange(FoodTrucks);
-                    ctx.SaveChanges();
+                    var count = 0;
+                    
+                    foreach (var foodTruck in FoodTrucks)
+                    {
+                        count++;
+                        Console.WriteLine("Processing object :{0}", count);
+                        
+                        var foodTruckToBeUpdated = ctx.FoodTrucksSF.FirstOrDefault(f => f.LocationId == foodTruck.LocationId);
+                        if (foodTruckToBeUpdated != null)
+                        {
+                            foodTruckToBeUpdated = foodTruck;
+                        }
+                        else
+                            ctx.FoodTrucksSF.Add(foodTruck);
+                    }
+                    ctx.SaveChanges();                    
                 }
                 catch(Exception e)
                 {
+                    Console.WriteLine(e.Message);
                     var validationErrors = ctx.GetValidationErrors();
                 }
                 
             }
         }
 
-        private static List<FoodTrucksSF> MapToFoodTrucksDbDbObject(List<SFDataModel> SFdata)
+        private static List<FoodTrucksSF> MapToFoodTrucksDbObject(List<SFDataModel> SFdata)
         {
             var FoodTrucks = new List<FoodTrucksSF>();
 

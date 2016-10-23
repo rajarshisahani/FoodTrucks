@@ -46,11 +46,9 @@ namespace FoodTrucksData
         [StringLength(500)]
         public string FoodItems { get; set; }
 
-        [StringLength(50)]
-        public string Latitude { get; set; }
+        public double? Latitude { get; set; }
 
-        [StringLength(50)]
-        public string Longitude { get; set; }
+        public double? Longitude { get; set; }
 
         [StringLength(50)]
         public string LocationType { get; set; }

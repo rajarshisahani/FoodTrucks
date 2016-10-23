@@ -18,10 +18,10 @@ namespace FoodTrucks.Data.Models
         public DateTime expirationdate;
         public string facilitytype;
         public string fooditems;
-        public string latitude;
+        public double latitude;
         public Location location;
         public string locationdescription;
-        public string longitude;
+        public double longitude;
         public string lot;
         public int objectid;
         public string permit;

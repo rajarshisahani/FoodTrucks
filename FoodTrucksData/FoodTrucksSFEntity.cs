@@ -4,11 +4,10 @@ namespace FoodTrucksData
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    using FoodTrucksModel;
 
-    public partial class FoodTrucksEntity : DbContext
+    public partial class FoodTrucksSFEntity : DbContext
     {
-        public FoodTrucksEntity()
+        public FoodTrucksSFEntity()
             : base("name=FoodTrucksEntity")
         {
         }
@@ -51,14 +50,6 @@ namespace FoodTrucksData
 
             modelBuilder.Entity<FoodTrucksSF>()
                 .Property(e => e.FoodItems)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<FoodTrucksSF>()
-                .Property(e => e.Latitude)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<FoodTrucksSF>()
-                .Property(e => e.Longitude)
                 .IsUnicode(false);
 
             modelBuilder.Entity<FoodTrucksSF>()

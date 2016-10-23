@@ -15,11 +15,7 @@ namespace FoodTrucks.Data.Repository
         {
 
         }
-
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-
-        //}
+        
         public virtual DbSet<FoodTrucksSF> FoodTrucksSF { get; set; }
     }
 }
