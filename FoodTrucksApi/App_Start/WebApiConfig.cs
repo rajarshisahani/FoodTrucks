@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FoodTrucksApi.DI;
+using FoodTrucksCore;
+using Microsoft.Practices.Unity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -19,6 +22,10 @@ namespace FoodTrucksApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var container = new UnityContainer();
+            container.RegisterType<IFoodTrucksRepository, FoodTrucksRepository>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
         }
     }
 }

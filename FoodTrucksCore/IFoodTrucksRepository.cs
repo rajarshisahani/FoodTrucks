@@ -1,13 +1,14 @@
-﻿using FoodTrucksApi.Models;
+﻿
+using FoodTrucksModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodTrucksApi.Repository
+namespace FoodTrucksCore
 {
-    interface IFoodTrucksRepository
+    public interface IFoodTrucksRepository
     {
         List<FoodTrucks> GetNearbyTrucks(string latitude, string longitiude);
 

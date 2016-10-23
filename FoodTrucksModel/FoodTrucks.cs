@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FoodTrucksApi.Models
+namespace FoodTrucksModel
 {
     public class FoodTrucks
     {
