@@ -22,21 +22,29 @@ namespace FoodTrucksApi.Controllers
         [HttpGet]
         public HttpResponseMessage GetNearbyTrucks([FromUri]double latitude, [FromUri]double longitude)
         {
+            
             HttpResponseMessage response;
             try
             {
+                IEnumerable<string> authorizarionHeaderValues;
+                if(!Request.Headers.TryGetValues("authorization", out authorizarionHeaderValues))
+                {
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized, "You are not authorized to access this service");
+                }
+                else if (string.Compare(authorizarionHeaderValues.FirstOrDefault(), "iamauthorized") != 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized, "You are not authorized to access this service");
+                }
                 var trucks = _foodTrucksRepository.GetNearbyTrucks(latitude, longitude);
                 if (!trucks.Any())
                 {
                     response = Request.CreateResponse(HttpStatusCode.NotFound, "No data found for the corresponding request");
                 }
-                response = Request.CreateResponse(HttpStatusCode.OK, trucks);
-                //return response;
+                response = Request.CreateResponse(HttpStatusCode.OK, trucks);                
             }
             catch (Exception e)
             {
-                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Partner downstream system failed to respond. Please check later.");
-                //return response;
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, "Partner downstream system failed to respond. Please check later.");                
             }
             return response;
         }
@@ -47,6 +55,15 @@ namespace FoodTrucksApi.Controllers
             HttpResponseMessage response;
             try
             {
+                IEnumerable<string> authorizarionHeaderValues;
+                if (!Request.Headers.TryGetValues("authorization", out authorizarionHeaderValues))
+                {
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized, "You are not authorized to access this service");
+                }
+                else if (string.Compare(authorizarionHeaderValues.FirstOrDefault(), "iamauthorized") != 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.Unauthorized, "You are not authorized to access this service");
+                }
                 var trucks = _foodTrucksRepository.GetAllTrucks();
                 if(!trucks.Any())
                 {
