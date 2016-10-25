@@ -6,15 +6,26 @@ using System.Threading.Tasks;
 using FoodTrucksModel;
 using FoodTrucksData;
 using System.Device.Location;
+using System.Diagnostics;
+
 namespace FoodTrucksCore
 {
     public class FoodTrucksRepository : IFoodTrucksRepository
     {
         public List<FoodTrucks> GetAllTrucks()
         {
+            //using (var ctx = new FoodTrucksSFEntity())
+            //{
+            //    var allFoodTrucks = ctx.FoodTrucksSFs.ToList();
+            //    return MapToServiceModel(allFoodTrucks);
+            //}
             using (var ctx = new FoodTrucksSFEntity())
             {
-                var allFoodTrucks = ctx.FoodTrucksSFs.ToList();
+                var stopWatch = new Stopwatch();
+                stopWatch.Start();
+                var allFoodTrucks = ctx.Database.SqlQuery<FoodTrucksSF>("SELECT [LocationId],[Address],[DaysHours],[ExpirationDate],[FoodItems],[Latitude],[Longitude],[LocationDescription],[Schedule],[Status] FROM[dbo].[FoodTrucksSF]", new object[1]).ToList();
+                stopWatch.Stop();
+                Console.WriteLine(stopWatch.ElapsedMilliseconds);
                 return MapToServiceModel(allFoodTrucks);
             }
         }
@@ -28,26 +39,26 @@ namespace FoodTrucksCore
                 {
                     LocationId = trucks.LocationId,
                     Address = trucks.Address,
-                    Cnn = trucks.Cnn,
-                    Approved = trucks.Approved,
-                    Block = trucks.Block,
-                    Lot = trucks.Lot,
-                    Blocklot = trucks.Blocklot,
-                    Applicant = trucks.Applicant,
+                    //Cnn = trucks.Cnn,
+                    //Approved = trucks.Approved,
+                    //Block = trucks.Block,
+                    //Lot = trucks.Lot,
+                    //Blocklot = trucks.Blocklot,
+                    //Applicant = trucks.Applicant,
                     DaysHours = trucks.DaysHours,
                     ExpirationDate = trucks.ExpirationDate,
-                    FacilityType = trucks.FacilityType,
+                    //FacilityType = trucks.FacilityType,
                     FoodItems = trucks.FoodItems,
                     Latitude = (double)trucks.Latitude,
                     Longitude = (double)trucks.Longitude,
-                    LocationType = trucks.LocationType,
+                    //LocationType = trucks.LocationType,
                     LocationDescription = trucks.LocationDescription,
-                    Permit = trucks.Permit,
-                    PriorPermit = trucks.PriorPermit,
+                    //Permit = trucks.Permit,
+                    //PriorPermit = trucks.PriorPermit,
                     Schedule = trucks.Schedule,
                     Status = trucks.Status,
-                    x = trucks.x,
-                    y = trucks.y
+                    //x = trucks.x,
+                    //y = trucks.y
                 });
                 
             }

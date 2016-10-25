@@ -1,4 +1,4 @@
-namespace FoodTrucksData
+namespace FoodTrucksWebJob.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,23 +16,23 @@ namespace FoodTrucksData
         [StringLength(500)]
         public string Address { get; set; }
 
-        //[StringLength(50)]
-        //public string Cnn { get; set; }
+        [StringLength(50)]
+        public string Cnn { get; set; }
 
-        //[Column(TypeName = "datetime2")]
-        //public DateTime? Approved { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime? Approved { get; set; }
 
-        //[StringLength(50)]
-        //public string Block { get; set; }
+        [StringLength(50)]
+        public string Block { get; set; }
 
-        //[StringLength(50)]
-        //public string Lot { get; set; }
+        [StringLength(50)]
+        public string Lot { get; set; }
 
-        //[StringLength(50)]
-        //public string Blocklot { get; set; }
+        [StringLength(50)]
+        public string Blocklot { get; set; }
 
-        //[StringLength(500)]
-        //public string Applicant { get; set; }
+        [StringLength(500)]
+        public string Applicant { get; set; }
 
         [StringLength(500)]
         public string DaysHours { get; set; }
@@ -40,8 +40,8 @@ namespace FoodTrucksData
         [Column(TypeName = "datetime2")]
         public DateTime? ExpirationDate { get; set; }
 
-        //[StringLength(50)]
-        //public string FacilityType { get; set; }
+        [StringLength(50)]
+        public string FacilityType { get; set; }
 
         [StringLength(500)]
         public string FoodItems { get; set; }
@@ -50,17 +50,17 @@ namespace FoodTrucksData
 
         public double? Longitude { get; set; }
 
-        //[StringLength(50)]
-        //public string LocationType { get; set; }
+        [StringLength(50)]
+        public string LocationType { get; set; }
 
         [StringLength(500)]
         public string LocationDescription { get; set; }
 
-        //[StringLength(50)]
-        //public string Permit { get; set; }
+        [StringLength(50)]
+        public string Permit { get; set; }
 
-        //[StringLength(50)]
-        //public string PriorPermit { get; set; }
+        [StringLength(50)]
+        public string PriorPermit { get; set; }
 
         [StringLength(500)]
         public string Schedule { get; set; }
@@ -68,10 +68,10 @@ namespace FoodTrucksData
         [StringLength(50)]
         public string Status { get; set; }
 
-        //[StringLength(50)]
-        //public string x { get; set; }
+        [StringLength(50)]
+        public string x { get; set; }
 
-        //[StringLength(50)]
-        //public string y { get; set; }
+        [StringLength(50)]
+        public string y { get; set; }
     }
 }
