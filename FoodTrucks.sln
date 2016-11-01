@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTrucksData", "FoodTruck
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTrucksWebJob", "FoodTrucksWebJob\FoodTrucksWebJob.csproj", "{0A399326-9C6D-4A16-B862-AB4869204669}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodTrucks", "FoodTrucks\FoodTrucks.csproj", "{F28EA1DA-9D15-41D8-86BF-36C26BD508CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{0A399326-9C6D-4A16-B862-AB4869204669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A399326-9C6D-4A16-B862-AB4869204669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A399326-9C6D-4A16-B862-AB4869204669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F28EA1DA-9D15-41D8-86BF-36C26BD508CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F28EA1DA-9D15-41D8-86BF-36C26BD508CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F28EA1DA-9D15-41D8-86BF-36C26BD508CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F28EA1DA-9D15-41D8-86BF-36C26BD508CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

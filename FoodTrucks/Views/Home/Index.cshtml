@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Find your food truck";
+ }
+
+    
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCuhHOGscxhk2qVmxdB0KPY6bnBMxbD9Mw&libraries=places&callback=initMap"
+        async defer></script>
+<script>
+    var locationCoordinates;
+    var markers = new Array();
+    var _trucksCache = { 'trucks': new Array(), 'timeStamp': '' };
+    var map;
+
+   
+    
+    function populateMarkersInMap(locationCoordinates) {        
+        markers.forEach(function (marker) {
+            marker.setMap(null);
+        });
+        locationCoordinates.forEach(function (locationCoordinate) {
+            markers.push(new google.maps.Marker({ position: { lat: locationCoordinate.Latitude, lng: locationCoordinate.Longitude }, map: map, title: locationCoordinate.LocationDescription }))
+        });        
+    }
+    function initMap() {
+
+        //init background process
+        
+        (function worker() {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("RefreshFoodTrucks", "Home")',
+                contentType: 'application/json;',// #3
+                dataType: 'json',// #2
+                success: function (result) {                    
+                    _trucksCache.trucks = result;
+                    _trucksCache.timeStamp = Math.floor(Date.now() / 1000);
+                    //populateMarkersInMap(_trucksCache.trucks);
+                },
+                complete: function () {
+                    // Schedule the next request when the current one's complete
+                    setTimeout(worker, 40000);
+                },
+
+                error: function () {
+                    alert('Some error occured. Please try again later');
+                }
+            });
+        })();
+        
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 37.773972, lng: -122.431297 },
+            zoom: 13,
+            //mapTypeId: 'roadMap'
+
+        });
+        var input = document.getElementById('pac-input');
+
+        input.onkeyup = function () {
+            
+            if (input.value.trim().length == 0) {
+                
+                populateMarkersInMap(_trucksCache.trucks);
+            }
+        };
+        
+        var searchBox = new google.maps.places.SearchBox(input); 
+
+
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+
+        });
+        
+        
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+            
+
+            if (places.length == 0) {             
+                
+                return;
+            }           
+           
+            var locationObject = {'Latitude':'', 'Longitude':''};
+            
+            locationObject.Latitude = places[0].geometry.location.lat();
+            locationObject.Longitude = places[0].geometry.location.lng();
+            var locationString = JSON.stringify(locationObject);
+            
+            $.ajax({              
+
+                type: 'POST',
+                data: {'locationString' : locationString},
+                url: '@Url.Action("SearchFoodTrucks", "Home")', 
+                dataType: 'json',
+                //contentType: 'application/json;',// #3
+                //dataType: 'json',// #2
+                success: function (result) {
+                    
+                    locationCoordinates = result;
+                    populateMarkersInMap(locationCoordinates);
+                    map.setCenter({ 'lat': locationObject.Latitude, 'lng': locationObject.Longitude });
+                    return result;
+                    //alert('I am a good message' + locationCoordinates[0].Latitude);
+                },
+                error: function () {
+                    alert('Some error occured. Please try again later');
+                }
+            });
+        });
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetFoodTrucks", "Home")',
+            contentType: 'application/json;',// #3
+            dataType: 'json',// #2
+            success: function (result) {
+                _trucksCache.trucks = result;
+                _trucksCache.timeStamp = Math.floor(Date.now() / 1000);
+                populateMarkersInMap(_trucksCache.trucks);
+            },          
+
+            error: function () {
+                alert('Some error occured. Please try again later');
+            }
+        });
+        
+
+        
+        
+    }  
+
+    
+
+    
+</script>
+<body>
+    <div>
+        <input id="pac-input" type="text" placeholder="Search Box">
+    </div>
+    <div id="map"></div>  
+    
+</body>
